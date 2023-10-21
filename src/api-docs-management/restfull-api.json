@@ -1,0 +1,332 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "RESTfull API Documents",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "localhost:1000"
+    }
+  ],
+  "paths": {
+    "/users/registrasi": {
+      "post": {
+        "tags": ["Registrasi"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "required": true,
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "nullable": false
+                  },
+                  "password": {
+                    "type": "string",
+                    "required": true,
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "nullable": false
+                  },
+                  "level": {
+                    "type": "string",
+                    "required": true,
+                    "enum": ["admin", "pengunjung"],
+                    "minLength": 1,
+                    "nullable": false
+                  },
+                  "username": {
+                    "type": "string",
+                    "required": true,
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "nullable": false
+                  },
+                  "gender": {
+                    "type": "string",
+                    "required": true,
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "nullable": false
+                  },
+                  "address": {
+                    "type": "string",
+                    "required": true,
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "nullable": false
+                  }
+                }
+              },
+              "example": {
+                "email": "choirul@gmail.com",
+                "password": "rahasia",
+                "level": "pengunjung",
+                "username": "ahmad choirul huda",
+                "gender": "female",
+                "address": "indonesia"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "level": {
+                          "type": "string"
+                        },
+                        "username": {
+                          "type": "string"
+                        },
+                        "gender": {
+                          "type": "string"
+                        },
+                        "address": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "data": {
+                    "id": "14",
+                    "username": "ahmad choirul huda",
+                    "gender": "female",
+                    "address": "indonesia",
+                    "accounts": {
+                      "email": "choirul@gmail.com",
+                      "level": "pengunjung"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "error": "Username is required"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "error": "User Already Exists"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "tags": ["Login"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "minLength": 1,
+                    "required": true
+                  },
+                  "password": {
+                    "type": "string",
+                    "minLength": 1,
+                    "required": true
+                  }
+                }
+              },
+              "example": {
+                "email": "choirul@gmail.com",
+                "password": "rahasia"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "email": {
+                          "type": "string"
+                        },
+                        "level": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "data": {
+                    "email": "choirul@gmail.com",
+                    "level": "pengunjung"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "error": "email is required"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "error": "User Not Found"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/logout": {
+      "get": {
+        "tags": ["Logout"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "email": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "data": {
+                    "email": "choirul@gmail.com"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorization",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "error": "Authentication is required to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "error": "User Not Found"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
