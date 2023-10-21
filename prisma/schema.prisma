@@ -10,24 +10,24 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Accounts{
-  id Int @id @default(autoincrement())
-  email String @db.VarChar(100)
+model Accounts {
+  id       Int    @id @default(autoincrement())
+  email    String @db.VarChar(100)
   password String @db.VarChar(100)
-  level String @db.VarChar(100)
+  level    String @db.VarChar(100)
 
   User User[]
 
-@@map("accounts")
+  @@map("accounts")
 }
 
-model User{
-  id Int @id @default(autoincrement())
-  username String @db.VarChar(100)
-  gender String @db.VarChar(100)
-  address String @db.VarChar(100)
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @db.VarChar(100)
+  gender    String   @db.VarChar(100)
+  address   String   @db.VarChar(100)
   accountId Int
-  accounts Accounts @relation(fields: [accountId], references: [id])
+  accounts  Accounts @relation(fields: [accountId], references: [id])
 
-@@map("users")
+  @@map("users")
 }
